@@ -1,1 +1,4 @@
 @import url("../base/base.css");
+body{
+    background: url(../img/test.jpg);
+}
