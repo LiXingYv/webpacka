@@ -7,20 +7,21 @@ const webpack=require("webpack")
 module.exports = {
     entry:{
         "js/body1" : "./js/body1.js",
-        "js/body2" : "./js/body2.js",
-        vendor:['jquery']
-
+        "js/body2" : "./js/body2.js"
     },
     output:{
         filename:'[name].js',
         path:path.resolve(__dirname,'dist'),
         publicPath:""
     },
+    // externals: {
+    //     $: 'jquery'
+    // },
     plugins:[
         new HtmlWebpackPlugin({
             filename:'body1.html',
             template:"page/body1.html",
-            chunks:['js/body1']
+            chunks:['js/body1','vendor']
         }),
         new HtmlWebpackPlugin({
             filename:'body2.html',
@@ -34,23 +35,28 @@ module.exports = {
             },
             allChunks: true
         }),
-        new webpack.ProvidePlugin({//单独全局引入第三方插件
-            $:"jquery"
-        }),
-        optimization:{
-    splitChunks: {
-        cacheGroups: {
-            commons: {
-                name: "commons",
-                    chunks: "initial",
-                    minChunks: 2
+        // new webpack.ProvidePlugin({//单独全局引入第三方插件
+        //     $:"jquery"
+        // })
+    ],
+    optimization: {
+        splitChunks: {//分离公共的js库
+            cacheGroups: {
+                commons: {
+                    name: "commons",
+                    chunks: "all",
+                    minChunks: 2,
+                    priority:0
+                },
+                vendor:{
+                    name:'vendor',
+                    test:/[\\/]node_modules[\\/]/,
+                    chunks: "all",
+                    priority:10
+                }
             }
         }
-    }
-}
-
-
-    ],
+    },
     module:{
         rules:[
             {//加载css文件
