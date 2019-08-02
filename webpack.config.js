@@ -26,7 +26,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             filename:'body2.html',
             template:"page/body2.html",
-            chunks:['js/body2']
+            chunks:['js/body2','vendor']
         }),
         new CleanWebpackPlugin(),//每次编译的清理插件
         new ExtractTextPlugin({//声明文件分离插件
@@ -74,12 +74,25 @@ module.exports = {
                 }
             },*/
             {//加载图片
-                test:/\.(png|svg|jpg|gif|jpeg)$/,
+                test:/\.(png|jpg|gif|jpeg)$/,
                 use:[
                     {
-                        loader:'file-loader',
+                        loader:'url-loader',
                         options:{
-                            name:'[path][name].[ext]'
+                            name:'[path][name].[ext]',
+                            limit:10000//设置小于10k的图片转换为base64
+                        }
+                    }
+                ]
+            },
+            {//加载图片
+                test:/\.(svg)$/,
+                use:[
+                    {
+                        loader:'url-loader',
+                        options:{
+                            name:'svg/[name].[ext]',
+                            limit:10000//设置小于10k的图片转换为base64
                         }
                     }
                 ]
@@ -88,7 +101,7 @@ module.exports = {
                 test:/\.(woff|woff2|eot|ttf|otf)$/,
                 use:[
                     {
-                        loader:'file-loader',
+                        loader:'url-loader',
                         options:{
                             name:'[path][name].[ext]'
                         }
