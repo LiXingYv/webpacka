@@ -4,7 +4,6 @@
 import "./head.js"
 import "../css/body2.css"
 
-
 // console.log('body2:',B);
 var imgUrl = require('../img/test.jpg');
 // var imgTempl = '<img src="'+imgUrl+'"/>';
