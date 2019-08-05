@@ -8,5 +8,4 @@ import "../common/config.js"
 import "../common/utils.js"
 
 $("body").css("backgroundColor","green");
-alert()
 export var a=67;

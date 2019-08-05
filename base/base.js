@@ -3,7 +3,6 @@
  */
 (function () {
     var b = "abcdfe"
-    alert();
 })()
 
 

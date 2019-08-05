@@ -5,6 +5,7 @@
 # jquery降级至1.10
 # webpack热更新插件加入并配置接口转发
 # css、js、html等文件设置压缩
+# css、js、html等文件设置map
 # 动态配置页面title
 # 添加lib文件夹，对于不能npm安装的文件放到lib中
 # 利用webpack雪碧图制作

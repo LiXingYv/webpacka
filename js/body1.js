@@ -10,4 +10,3 @@ $("h1").css("color","green");
 $("#bbttnn").click(function(){
     $('#myModal').modal('show');
 })
-alert(a);

@@ -1,8 +1,10 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");//独立css的插件
+const ExtractTextPlugin = require("extract-text-webpack-plugin");//独立提取css的插件
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');//压缩css插件
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");//清理输出文件夹插件
-const webpack=require("webpack")
+const webpack=require("webpack");
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;//打包分析插件
 
 module.exports = {
     entry:{
@@ -17,16 +19,31 @@ module.exports = {
     // externals: {
     //     $: 'jquery'
     // },
+    mode:'development',
     plugins:[
         new HtmlWebpackPlugin({
             filename:'body1.html',
             template:"page/body1.html",
-            chunks:['js/body1','vendor']
+            chunks:['js/body1','vendor'],
+            minify:{
+                removeComments:true,//清除注释
+                collapseWhitespace:true,//清除html中的空格、换行符
+                minifyCss:true,//压缩html内的样式
+                minifyJS:true,//压缩html内的js
+                // removeEmptyElements:true//清理内容为空的元素
+            }
         }),
         new HtmlWebpackPlugin({
             filename:'body2.html',
             template:"page/body2.html",
-            chunks:['js/body2','vendor']
+            chunks:['js/body2','vendor'],
+            minify:{
+                removeComments:true,//清除注释
+                collapseWhitespace:true,//清除html中的空格、换行符
+                minifyCss:true,//压缩html内的样式
+                minifyJS:true,//压缩html内的js
+                // removeEmptyElements:true//清理内容为空的元素
+            }
         }),
         new CleanWebpackPlugin(),//每次编译的清理插件
         new ExtractTextPlugin({//声明文件分离插件
@@ -35,9 +52,11 @@ module.exports = {
             },
             allChunks: true
         }),
+        new OptimizeCssAssetsPlugin(),
+        // new BundleAnalyzerPlugin()//打包分析插件
         // new webpack.ProvidePlugin({//单独全局引入第三方插件
         //     $:"jquery"
-        // })
+        // }),
     ],
     optimization: {
         splitChunks: {//分离公共的js库
@@ -80,19 +99,19 @@ module.exports = {
                         loader:'url-loader',
                         options:{
                             name:'[path][name].[ext]',
-                            limit:10000//设置小于10k的图片转换为base64
+                            limit:10000//设置小于10k的文件转换为base64
                         }
                     }
                 ]
             },
-            {//加载图片
+            {//加载svg
                 test:/\.(svg)$/,
                 use:[
                     {
                         loader:'url-loader',
                         options:{
-                            name:'svg/[name].[ext]',
-                            limit:10000//设置小于10k的图片转换为base64
+                            name:'assets/[name].[ext]',
+                            limit:10000//设置小于10k的文件转换为base64
                         }
                     }
                 ]
@@ -103,7 +122,8 @@ module.exports = {
                     {
                         loader:'url-loader',
                         options:{
-                            name:'[path][name].[ext]'
+                            name:'assets/[name].[ext]',
+                            limit:10000//设置小于10k的文件转换为base64
                         }
                     }
                 ]
