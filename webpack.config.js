@@ -13,13 +13,15 @@ if(process.env.NODE_ENV === 'test'){
     console.log(devMode ? "打包开发环境程序！" : "打包生产环境程序！" );
 }
 
-module.exports = {
+let hmr = new webpack.HotModuleReplacementPlugin();
+
+const conf = {
     entry:{
         "body1" : "./js/body1.js",
         "body2" : "./js/body2.js"
     },
     output:{
-        filename:'js/[name].js',
+        filename:devMode ? 'js/[name].js' : 'js/[name].[chunkhash:7].js',
         path:path.resolve(__dirname,'dist'),
         publicPath:""
     },
@@ -28,7 +30,7 @@ module.exports = {
     // },
     devServer:{
         // contentBase:'./dist',
-        hot:true
+        hot:devMode ? true : false
     },
     plugins:[
         new HtmlWebpackPlugin({
@@ -57,7 +59,7 @@ module.exports = {
         }),
         new CleanWebpackPlugin(),//每次编译的清理插件
         new MiniCssExtractPlugin({//声明文件分离插件
-            filename:  devMode ? 'css/[name].css' : 'css/[name].[hash].css',
+            filename:  devMode ? 'css/[name].css' : 'css/[name].[contenthash:7].css',
             allChunks: true
         }),
         new OptimizeCssAssetsPlugin({
@@ -71,14 +73,14 @@ module.exports = {
             }
         }),
         new webpack.NamedModulesPlugin(),
-        new webpack.HotModuleReplacementPlugin(),//热重载
         new webpack.DefinePlugin({//定义全局变量
             HTTP_ENV:JSON.stringify(process.env.NODE_ENV)
         }),
-        // new BundleAnalyzerPlugin()//打包分析插件
-        // new webpack.ProvidePlugin({//单独全局引入第三方插件
-        //     $:"jquery"
-        // }),
+        // new BundleAnalyzerPlugin(),//打包分析插件
+        new webpack.ProvidePlugin({//单独全局引入第三方插件
+            $:"jquery",
+            jQuery:"jquery"
+        }),
     ],
     optimization: {
         splitChunks: {//分离公共的js库
@@ -100,6 +102,11 @@ module.exports = {
     },
     module:{
         rules:[
+            {//使用babel转义js
+                test: /\.js$/,
+                exclude: /node_modules/,//排除node_modules文件夹下的js文件的转义
+                loader:"babel-loader"
+            },
             {//加载css文件
                 test: /\.css$/,
                 use:[
@@ -159,3 +166,9 @@ module.exports = {
         ]
     }
 }
+
+if(devMode){
+    conf.plugins.push(hmr);
+}
+
+module.exports = conf;
