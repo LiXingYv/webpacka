@@ -5,9 +5,9 @@
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "cross-env NODE_ENV=production webpack --config webpack.config.js",
+    "build": "cross-env NODE_ENV=production webpack --mode production --config webpack.config.js",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --devtool source-map",
-    "buildDev": "cross-env NODE_ENV=development webpack --config webpack.config.js"
+    "buildTest": "cross-env NODE_ENV=test webpack --mode production --config webpack.config.js"
   },
   "author": "",
   "license": "MIT",

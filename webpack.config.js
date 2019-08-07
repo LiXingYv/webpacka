@@ -7,7 +7,11 @@ const webpack=require("webpack");
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;//打包分析插件
 const devMode = process.env.NODE_ENV !== 'production';//标识生产/开发环境
 
-console.log(devMode?"":"打包生产环境程序！");
+if(process.env.NODE_ENV === 'test'){
+    console.log('打包测试环境程序！')
+}else{
+    console.log(devMode ? "打包开发环境程序！" : "打包生产环境程序！" );
+}
 
 module.exports = {
     entry:{
@@ -19,7 +23,6 @@ module.exports = {
         path:path.resolve(__dirname,'dist'),
         publicPath:""
     },
-    mode: devMode ? 'development' : 'production',
     // externals: {
     //     $: 'jquery'
     // },
@@ -64,11 +67,14 @@ module.exports = {
                     inline: false,
                     //向css文件添加source-map路径注释,如果没有此项压缩后的css会去除source-map路径注释
                     annotation: true
-                } : ''//生产环境下生成cssmap文件
+                } : ''//开发环境下生成cssmap文件
             }
         }),
         new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin(),//热重载
+        new webpack.DefinePlugin({//定义全局变量
+            HTTP_ENV:JSON.stringify(process.env.NODE_ENV)
+        }),
         // new BundleAnalyzerPlugin()//打包分析插件
         // new webpack.ProvidePlugin({//单独全局引入第三方插件
         //     $:"jquery"
