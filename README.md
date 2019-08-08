@@ -1,6 +1,4 @@
-# jquery降级至1.10
-# webpack热更新插件加入并配置接口转发
-# 动态配置页面title
+
 # 利用webpack雪碧图制作
 # 引入less
 # balbel配置文件设置，使用es6语法用其转义

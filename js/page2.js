@@ -2,7 +2,7 @@
  * Created by Lee on 2019/7/17.
  */
 import "./head.js"
-import "../css/body2.css"
+import "../css/page2.css"
 
 // console.log('body2:',B);
 var imgUrl = require('../assets/test.jpg');

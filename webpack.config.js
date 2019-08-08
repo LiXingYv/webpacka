@@ -1,11 +1,13 @@
+
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');//独立提取css的插件
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');//压缩css插件
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");//清理输出文件夹插件
 const webpack=require("webpack");
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;//打包分析插件
 const devMode = process.env.NODE_ENV !== 'production';//标识生产/开发环境
+const pages = require('./pageDefine');
+const merge = require('webpack-merge');
 
 if(process.env.NODE_ENV === 'test'){
     console.log('打包测试环境程序！')
@@ -17,8 +19,6 @@ let hmr = new webpack.HotModuleReplacementPlugin();
 
 const conf = {
     entry:{
-        "body1" : "./js/body1.js",
-        "body2" : "./js/body2.js"
     },
     output:{
         filename:devMode ? 'js/[name].js' : 'js/[name].[chunkhash:7].js',
@@ -29,35 +29,10 @@ const conf = {
     //     $: 'jquery'
     // },
     devServer:{
-        // contentBase:'./dist',
+        contentBase:'./dist',
         hot:devMode ? true : false
     },
     plugins:[
-        new HtmlWebpackPlugin({
-            filename:'body1.html',
-            template:"page/body1.html",
-            chunks:['body1','vendor'],
-            minify:{
-                removeComments:true,//清除注释
-                collapseWhitespace:true,//清除html中的空格、换行符
-                minifyCss:true,//压缩html内的样式
-                minifyJS:true,//压缩html内的js
-                // removeEmptyElements:true//清理内容为空的元素
-            }
-        }),
-        new HtmlWebpackPlugin({
-            filename:'body2.html',
-            template:"page/body2.html",
-            chunks:['body2','vendor'],
-            minify:{
-                removeComments:true,//清除注释
-                collapseWhitespace:true,//清除html中的空格、换行符
-                minifyCss:true,//压缩html内的样式
-                minifyJS:true,//压缩html内的js
-                // removeEmptyElements:true//清理内容为空的元素
-            }
-        }),
-        new CleanWebpackPlugin(),//每次编译的清理插件
         new MiniCssExtractPlugin({//声明文件分离插件
             filename:  devMode ? 'css/[name].css' : 'css/[name].[contenthash:7].css',
             allChunks: true
@@ -169,6 +144,13 @@ const conf = {
 
 if(devMode){
     conf.plugins.push(hmr);
+}else{
+    conf.plugins.push(new CleanWebpackPlugin())//非开发环境添加清理插件
 }
 
-module.exports = conf;
+pageConf={
+    entry:pages.entrys,
+    plugins:pages.pages
+};
+
+module.exports = merge(conf,pageConf);
