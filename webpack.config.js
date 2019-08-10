@@ -82,6 +82,21 @@ const conf = {
                 exclude: /node_modules/,//排除node_modules文件夹下的js文件的转义
                 loader:"babel-loader"
             },
+            {//加载less文件
+                test: /\.less$/,
+                use:[
+                    {
+                        loader:MiniCssExtractPlugin.loader,
+                        options:{
+                            publicPath:'../',
+                            hmr: process.env.NODE_ENV === 'development',
+                            reloadAll:true
+                        }
+                    },
+                    'css-loader',
+                    'less-loader'
+                ]
+            },
             {//加载css文件
                 test: /\.css$/,
                 use:[
