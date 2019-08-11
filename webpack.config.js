@@ -1,40 +1,38 @@
-
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');//独立提取css的插件
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');//压缩css插件
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");//清理输出文件夹插件
-const webpack=require("webpack");
+const {CleanWebpackPlugin} = require("clean-webpack-plugin");//清理输出文件夹插件
+const webpack = require("webpack");
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;//打包分析插件
 const devMode = process.env.NODE_ENV !== 'production';//标识生产/开发环境
 const pages = require('./pageDefine');
 const merge = require('webpack-merge');
 
-if(process.env.NODE_ENV === 'test'){
+if (process.env.NODE_ENV === 'test') {
     console.log('打包测试环境程序！')
-}else{
-    console.log(devMode ? "打包开发环境程序！" : "打包生产环境程序！" );
+} else {
+    console.log(devMode ? "打包开发环境程序！" : "打包生产环境程序！");
 }
 
 let hmr = new webpack.HotModuleReplacementPlugin();
 
 const conf = {
-    entry:{
-    },
-    output:{
-        filename:devMode ? 'js/[name].js' : 'js/[name].[chunkhash:7].js',
-        path:path.resolve(__dirname,'dist'),
-        publicPath:""
+    entry: {},
+    output: {
+        filename: devMode ? 'js/[name].js' : 'js/[name].[chunkhash:7].js',
+        path: path.resolve(__dirname, 'dist'),
+        publicPath: ""
     },
     // externals: {
     //     $: 'jquery'
     // },
-    devServer:{
-        contentBase:'./dist',
-        hot:devMode ? true : false
+    devServer: {
+        contentBase: './dist',
+        hot: devMode ? true : false
     },
-    plugins:[
+    plugins: [
         new MiniCssExtractPlugin({//声明文件分离插件
-            filename:  devMode ? 'css/[name].css' : 'css/[name].[contenthash:7].css',
+            filename: devMode ? 'css/[name].css' : 'css/[name].[contenthash:7].css',
             allChunks: true
         }),
         new OptimizeCssAssetsPlugin({
@@ -49,12 +47,12 @@ const conf = {
         }),
         new webpack.NamedModulesPlugin(),
         new webpack.DefinePlugin({//定义全局变量
-            HTTP_ENV:JSON.stringify(process.env.NODE_ENV)
+            HTTP_ENV: JSON.stringify(process.env.NODE_ENV)
         }),
         // new BundleAnalyzerPlugin(),//打包分析插件
         new webpack.ProvidePlugin({//单独全局引入第三方插件
-            $:"jquery",
-            jQuery:"jquery"
+            $: "jquery",
+            jQuery: "jquery"
         }),
     ],
     optimization: {
@@ -64,51 +62,57 @@ const conf = {
                     name: "commons",
                     chunks: "all",
                     minChunks: 2,
-                    priority:0
+                    priority: 0
                 },
-                vendor:{
-                    name:'vendor',
-                    test:/[\\/]node_modules[\\/]/,
+                vendor: {
+                    name: 'vendor',
+                    test: /[\\/]node_modules[\\/]/,
                     chunks: "all",
-                    priority:10
+                    priority: 10
                 }
             }
         }
     },
-    module:{
-        rules:[
+    module: {
+        rules: [
             {//使用babel转义js
                 test: /\.js$/,
                 exclude: /node_modules/,//排除node_modules文件夹下的js文件的转义
-                loader:"babel-loader"
+                use:[
+                    {
+                        loader: "babel-loader"
+                    }
+                ]
             },
             {//加载less文件
                 test: /\.less$/,
-                use:[
+                use: [
                     {
-                        loader:MiniCssExtractPlugin.loader,
-                        options:{
-                            publicPath:'../',
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            publicPath: '../',
                             hmr: process.env.NODE_ENV === 'development',
-                            reloadAll:true
+                            reloadAll: true
                         }
                     },
                     'css-loader',
-                    'less-loader'
+                    'less-loader',
+                    "postcss-loader"
                 ]
             },
             {//加载css文件
                 test: /\.css$/,
-                use:[
+                use: [
                     {
-                        loader:MiniCssExtractPlugin.loader,
-                        options:{
-                            publicPath:'../',
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            publicPath: '../',
                             hmr: process.env.NODE_ENV === 'development',
-                            reloadAll:true
+                            reloadAll: true
                         }
                     },
-                    'css-loader'
+                    'css-loader',
+                    "postcss-loader"
                 ]
             },
             /*{//加载html文件,这里不适用全局的html加载器因为会和htmlwebpackplugin冲突
@@ -118,37 +122,37 @@ const conf = {
                 }
             },*/
             {//加载图片
-                test:/\.(png|jpg|gif|jpeg)$/,
-                use:[
+                test: /\.(png|jpg|gif|jpeg)$/,
+                use: [
                     {
-                        loader:'url-loader',
-                        options:{
-                            name:'[path][name].[ext]',
-                            limit:10000//设置小于10k的文件转换为base64
+                        loader: 'url-loader',
+                        options: {
+                            name: '[path][name].[ext]',
+                            limit: 10000//设置小于10k的文件转换为base64
                         }
                     }
                 ]
             },
             {//加载svg
-                test:/\.(svg)$/,
-                use:[
+                test: /\.(svg)$/,
+                use: [
                     {
-                        loader:'url-loader',
-                        options:{
-                            name:'assets/[name].[ext]',
-                            limit:10000//设置小于10k的文件转换为base64
+                        loader: 'url-loader',
+                        options: {
+                            name: 'assets/[name].[ext]',
+                            limit: 10000//设置小于10k的文件转换为base64
                         }
                     }
                 ]
             },
             {//加载字体文件
-                test:/\.(woff|woff2|eot|ttf|otf)$/,
-                use:[
+                test: /\.(woff|woff2|eot|ttf|otf)$/,
+                use: [
                     {
-                        loader:'url-loader',
-                        options:{
-                            name:'assets/[name].[ext]',
-                            limit:10000//设置小于10k的文件转换为base64
+                        loader: 'url-loader',
+                        options: {
+                            name: 'assets/[name].[ext]',
+                            limit: 10000//设置小于10k的文件转换为base64
                         }
                     }
                 ]
@@ -157,15 +161,15 @@ const conf = {
     }
 }
 
-if(devMode){
+if (devMode) {
     conf.plugins.push(hmr);
-}else{
+} else {
     conf.plugins.push(new CleanWebpackPlugin())//非开发环境添加清理插件
 }
 
-pageConf={
-    entry:pages.entrys,
-    plugins:pages.pages
+pageConf = {
+    entry: pages.entrys,
+    plugins: pages.pages
 };
 
-module.exports = merge(conf,pageConf);
+module.exports = merge(conf, pageConf);

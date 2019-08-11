@@ -8,7 +8,8 @@
         },
         "debug": true
       }
-    ]
+    ],
+    "stage-3"
   ],
   "plugins": [
     "transform-runtime"
