@@ -17,7 +17,9 @@ if (process.env.NODE_ENV === 'test') {
 let hmr = new webpack.HotModuleReplacementPlugin();
 
 const conf = {
-    entry: {},
+    entry: {
+        
+    },
     output: {
         filename: devMode ? 'js/[name].js' : 'js/[name].[chunkhash:7].js',
         path: path.resolve(__dirname, 'dist'),
@@ -58,18 +60,24 @@ const conf = {
     optimization: {
         splitChunks: {//分离公共的js库
             cacheGroups: {
-                commons: {
+                /*commons: {
                     name: "commons",
                     chunks: "all",
                     minChunks: 2,
                     priority: 0
-                },
-                vendor: {
+                },*/
+                vendor: {//打包jquery和bootstrap到vendor.js
                     name: 'vendor',
-                    test: /[\\/]node_modules[\\/]/,
+                    test:/jquery|bootstrap/,
+                    chunks: "all",
+                    priority: 9
+                },
+                /*echarts: {//单独打包echarts到echarts.js文件
+                    name: 'echarts',
+                    test: /echarts|zrender/,
                     chunks: "all",
                     priority: 10
-                }
+                }*/
             }
         }
     },

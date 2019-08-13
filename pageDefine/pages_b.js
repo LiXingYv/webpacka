@@ -9,7 +9,7 @@ pages = [
     new HtmlWebpackPlugin({
         filename:'page2.html',
         template:"page/page2.html",
-        chunks:['body2','vendor'],
+        chunks:['page2','vendor'],
         title:"page2",
         minify:{
             removeComments:true,//清除注释

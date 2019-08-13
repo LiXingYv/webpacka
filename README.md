@@ -4,7 +4,7 @@
 ### 优化balbel配置
 ### 优化postcss配置
 ### 形成一些编程规范，使用代码检查工具，并修改其配置
-### 优化split插件分离js规则
+### 优化split插件分离js规则，只把jquery和bootstrap打包到vendor
 ### 使用文档编写
 ### 利用git多人协作改进
 
