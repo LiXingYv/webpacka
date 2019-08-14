@@ -12,4 +12,7 @@
 # 项目描述
 # 开发人员
 # 维护人员
-# 本项目用到的函数库 jQuery ，UI框架 bootstrap3
+# 主要用途：多页面网页前端开发
+# 本项目用到的函数库 jQuery ，UI框架 bootstrap3，echarts4
+# 脚手架浏览器兼容性，向下兼容至ie8
+# 设备兼容性pc端与pad端
