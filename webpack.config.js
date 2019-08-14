@@ -54,7 +54,8 @@ const conf = {
         // new BundleAnalyzerPlugin(),//打包分析插件
         new webpack.ProvidePlugin({//单独全局引入第三方插件
             $: "jquery",
-            jQuery: "jquery"
+            jQuery: "jquery",
+            "window.jQuery": "jquery"
         }),
     ],
     optimization: {
