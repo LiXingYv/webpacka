@@ -88,10 +88,6 @@ const conf = {
     },
     module: {
         rules: [
-            {
-                test: require.resolve('jquery'),
-                loader: 'expose?jQuery!expose?$'
-            },
             {//使用babel转义js
                 test: /\.js$/,
                 exclude: /node_modules/,//排除node_modules文件夹下的js文件的转义

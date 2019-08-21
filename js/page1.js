@@ -6,13 +6,13 @@ import "../css/page1.less"
 import {baseUrl} from '../base/config/index.js'
 import Common from '../base/common/index.js'
 import "./head.js"
-import $ from 'expose?$!jquery'
+import $ from './jquery-vendor.js'
 // import {Device,Request,Native,Other,Str,Time,Url} from '../base/utils/index.js'
 import echarts from "echarts/lib/echarts"
 import "echarts/lib/chart/bar"
 import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/title'
-import '../lib/jiaoben5816/js/hullabaloo.js'
+import '../lib/countdown/dist/jquery.countdown.js'
 
 console.log(baseUrl)
 
@@ -35,3 +35,8 @@ echart1.setOption({
     }]
 });
 console.log(echart1);
+$(function () {
+    $('#clock').countdown('2020/1/1', function(event) {
+        $(this).html(event.strftime('%D 天 %H:%M:%S'));
+    });
+})
