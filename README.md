@@ -7,6 +7,7 @@
 ### 优化split插件分离js规则，只把jquery和bootstrap打包到vendor
 ### 使用文档编写
 ### 利用git多人协作改进
+### 基地址写法修改优化
 
 
 # 项目描述

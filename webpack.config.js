@@ -25,9 +25,12 @@ const conf = {
         path: path.resolve(__dirname, 'dist'),
         publicPath: ""
     },
-    // externals: {
-    //     $: 'jquery'
-    // },
+    /*externals: {
+        $: "jquery",
+        jQuery: "jquery",
+        "window.jQuery": "jquery",
+        "window.$": "jquery"
+    },*/
     devServer: {
         contentBase: './dist',
         hot: devMode ? true : false
@@ -52,11 +55,12 @@ const conf = {
             HTTP_ENV: JSON.stringify(process.env.NODE_ENV)
         }),
         // new BundleAnalyzerPlugin(),//打包分析插件
-        new webpack.ProvidePlugin({//单独全局引入第三方插件
+        /*new webpack.ProvidePlugin({//单独全局引入第三方插件
             $: "jquery",
             jQuery: "jquery",
-            "window.jQuery": "jquery"
-        }),
+            "window.jQuery": "jquery",
+            "window.$": "jquery"
+        }),*/
     ],
     optimization: {
         splitChunks: {//分离公共的js库
@@ -84,6 +88,10 @@ const conf = {
     },
     module: {
         rules: [
+            {
+                test: require.resolve('jquery'),
+                loader: 'expose?jQuery!expose?$'
+            },
             {//使用babel转义js
                 test: /\.js$/,
                 exclude: /node_modules/,//排除node_modules文件夹下的js文件的转义

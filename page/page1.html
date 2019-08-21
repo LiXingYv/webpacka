@@ -5,5 +5,13 @@
 <img src="<%= require('../assets/test.jpg') %>" alt="">
 <div id="aa" style="width:500px;height:500px;"></div>
 <div class="testless"></div>
+<div>
+    <button class="btn btn-success m-2" onclick="$.hulla.send('这是一则成功信息', 'success')">Success</button>
+    <button class="btn btn-info m-2" onclick="$.hulla.send('这是一则信息', 'info')">Info</button>
+    <button class="btn btn-warning m-2" onclick="$.hulla.send('这是一则警告信息!', 'warning')">Warning</button>
+    <button class="btn btn-danger m-2" onclick="$.hulla.send('这是一则危险信息', 'danger')">Danger</button>
+    <button class="btn btn-light m-2" onclick="$.hulla.send('这是一则信息（亮色主题）', 'light')">Light</button>
+    <button class="btn btn-dark m-2" onclick="$.hulla.send('这是一则信息（暗色主题）', 'dark')">Dark</button>
+</div>
 
 <%= require('html-loader!../templates/footer.html') %>

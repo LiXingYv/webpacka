@@ -6,11 +6,14 @@ import "../css/page1.less"
 import {baseUrl} from '../base/config/index.js'
 import Common from '../base/common/index.js'
 import "./head.js"
+import $ from 'expose?$!jquery'
 // import {Device,Request,Native,Other,Str,Time,Url} from '../base/utils/index.js'
 import echarts from "echarts/lib/echarts"
 import "echarts/lib/chart/bar"
 import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/title'
+import '../lib/jiaoben5816/js/hullabaloo.js'
+
 console.log(baseUrl)
 
 $(".testless").css("backgroundColor","green");
