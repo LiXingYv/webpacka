@@ -51,7 +51,7 @@ const conf = {
     },*/
     devServer: {
         host:getLocalIPAdress(),//设置服务器ip,如果不设置，为localhost
-        index:"index.html",//指定首页默认即为index.html
+        index:"page1.html",//指定首页默认即为index.html
         // https:true,//设置是否使用https访问
         contentBase: './dist',
         hot: devMode ? true : false,
