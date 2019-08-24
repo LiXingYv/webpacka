@@ -13,9 +13,10 @@ import "echarts/lib/chart/bar"
 import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/title'
 import '../lib/countdown/dist/jquery.countdown.js'
+import '../lib/jiaoben5816/js/hullabaloo.js'
 
 console.log(baseUrl)
-
+console.log($.hulla);
 $(".testless").css("backgroundColor","green");
 
 var echart1 = echarts.init(document.getElementById("aa"));

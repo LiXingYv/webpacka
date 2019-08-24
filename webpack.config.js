@@ -32,8 +32,10 @@ const conf = {
         "window.$": "jquery"
     },*/
     devServer: {
+        index:"index.html",//指定首页默认即为index.html
         contentBase: './dist',
-        hot: devMode ? true : false
+        hot: devMode ? true : false,
+        // openPage:"",//指定打开的页面
     },
     plugins: [
         new MiniCssExtractPlugin({//声明文件分离插件
