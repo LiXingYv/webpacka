@@ -7,11 +7,29 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const devMode = process.env.NODE_ENV !== 'production';//标识生产/开发环境
 const pages = require('./pageDefine');
 const merge = require('webpack-merge');
+const os = require('os');
 
 if (process.env.NODE_ENV === 'test') {
     console.log('打包测试环境程序！')
 } else {
     console.log(devMode ? "打包开发环境程序！" : "打包生产环境程序！");
+}
+
+/**
+ * 获取本机ip
+ * @returns {app.address}
+ */
+function getLocalIPAdress() {
+    var interfaces = os.networkInterfaces();
+    for (var devName in interfaces) {
+        var iface = interfaces[devName];
+        for (var i = 0; i < iface.length; i++) {
+            var alias = iface[i];
+            if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal) {
+                return alias.address;
+            }
+        }
+    }
 }
 
 let hmr = new webpack.HotModuleReplacementPlugin();
@@ -32,9 +50,12 @@ const conf = {
         "window.$": "jquery"
     },*/
     devServer: {
+        host:getLocalIPAdress(),//设置服务器ip,如果不设置，为localhost
         index:"index.html",//指定首页默认即为index.html
+        // https:true,//设置是否使用https访问
         contentBase: './dist',
         hot: devMode ? true : false,
+        open:true,//设置打开浏览器
         // openPage:"",//指定打开的页面
     },
     plugins: [
