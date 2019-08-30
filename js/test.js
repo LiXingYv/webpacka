@@ -11,3 +11,6 @@ function curtName(str) {
     return str.slice(0,1) + new Array(str.length).join('*') ;
 }
 console.log(curtName("纳兰雪"))
+
+var num = 1.2568945;
+num.toFixed(2);//截取2位小数
