@@ -5,9 +5,11 @@ const {CleanWebpackPlugin} = require("clean-webpack-plugin");//清理输出文�
 const webpack = require("webpack");
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;//打包分析插件
 const devMode = process.env.NODE_ENV !== 'production';//标识生产/开发环境
-const pages = require('./pageDefine');
+const pages = require('./webpack.configPages.js');
 const merge = require('webpack-merge');
 const os = require('os');
+//静态资源输出
+const copyWebpackPlugin = require("copy-webpack-plugin");
 
 if (process.env.NODE_ENV === 'test') {
     console.log('打包测试环境程序！')
@@ -19,7 +21,7 @@ if (process.env.NODE_ENV === 'test') {
  * 获取本机ip
  * @returns {app.address}
  */
-function getLocalIPAdress() {
+function getIPAdress() {
     var interfaces = os.networkInterfaces();
     for (var devName in interfaces) {
         var iface = interfaces[devName];
@@ -35,34 +37,39 @@ function getLocalIPAdress() {
 let hmr = new webpack.HotModuleReplacementPlugin();
 
 const conf = {
-    entry: {
-        
-    },
+    entry: {},
     output: {
         filename: devMode ? 'js/[name].js' : 'js/[name].[chunkhash:7].js',
         path: path.resolve(__dirname, 'dist'),
         publicPath: ""
     },
-    /*externals: {
-        $: "jquery",
-        jQuery: "jquery",
-        "window.jQuery": "jquery",
-        "window.$": "jquery"
-    },*/
+    resolve: {
+        alias: {
+            '@': path.resolve(__dirname, './'),
+            'src@': path.resolve(__dirname, 'src')
+        }
+    },
+    // externals: {
+    //     $: 'jquery'
+    // },
     devServer: {
-        host:getLocalIPAdress(),//设置服务器ip,如果不设置，为localhost
-        index:"page1.html",//指定首页默认即为index.html
-        // https:true,//设置是否使用https访问
+        index:"login.html",//设置打开的主页
+        host:getIPAdress(),
+        disableHostCheck: true,
         contentBase: './dist',
-        hot: devMode ? true : false,
-        open:true,//设置打开浏览器
-        // openPage:"",//指定打开的页面
+        hot: devMode ? true : false
     },
     plugins: [
         new MiniCssExtractPlugin({//声明文件分离插件
             filename: devMode ? 'css/[name].css' : 'css/[name].[contenthash:7].css',
             allChunks: true
         }),
+        //静态资源输出
+        new copyWebpackPlugin([{
+            from: path.resolve(__dirname, "./static"),
+            to: './static',
+            ignore: ['.*']
+        }]),
         new OptimizeCssAssetsPlugin({
             cssProcessorOptions: {
                 map: devMode ? {
@@ -78,34 +85,21 @@ const conf = {
             HTTP_ENV: JSON.stringify(process.env.NODE_ENV)
         }),
         // new BundleAnalyzerPlugin(),//打包分析插件
-        /*new webpack.ProvidePlugin({//单独全局引入第三方插件
+        new webpack.ProvidePlugin({//单独全局引入第三方插件
             $: "jquery",
             jQuery: "jquery",
-            "window.jQuery": "jquery",
-            "window.$": "jquery"
-        }),*/
+            "window.jQuery": "jquery"
+        }),
     ],
     optimization: {
         splitChunks: {//分离公共的js库
             cacheGroups: {
-                /*commons: {
-                    name: "commons",
-                    chunks: "all",
-                    minChunks: 2,
-                    priority: 0
-                },*/
-                vendor: {//打包jquery和bootstrap到vendor.js
+                vendor: {
                     name: 'vendor',
-                    test:/jquery|bootstrap/,
-                    chunks: "all",
-                    priority: 9
-                },
-                /*echarts: {//单独打包echarts到echarts.js文件
-                    name: 'echarts',
-                    test: /echarts|zrender/,
+                    test: /jquery|bootstrap/,
                     chunks: "all",
                     priority: 10
-                }*/
+                }
             }
         }
     },
