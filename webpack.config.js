@@ -126,8 +126,8 @@ const conf = {
                         }
                     },
                     'css-loader',
-                    'less-loader',
-                    "postcss-loader"
+                    'postcss-loader',
+                    'less-loader'
                 ]
             },
             {//加载css文件
