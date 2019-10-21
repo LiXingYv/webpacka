@@ -4,7 +4,7 @@
 * @Date: 2019-08-16 17:19:43
 */
 
-require("layui-layer")
+// require("layui-layer")
 import './index.less'
 
 // 引入基础的路径

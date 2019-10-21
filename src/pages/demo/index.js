@@ -18,7 +18,7 @@ import { baseUrl } from 'src@/base/config/index.js'//引入项目公共的url地
 /**
  * 3、引入本页面引入的项目公共组件js
  */
-import 'src@/templates/head/head.js'//引入公共组件公用头部js
+import 'src@/templates/head/index.js'//引入公共组件公用头部js
 
 /**
  * 4、引入本项目通用的公共函数
@@ -33,7 +33,7 @@ var utils = require('src@/base/utils/index.js')
 /**
  * 6、引入第三方插件
  */
-require("layui-layer");//引入layui插件
+// require("layui-layer");//引入layui插件
 //引入分页插件
 require('paginationjs/dist/pagination.css')
 require('paginationjs')

@@ -1,11 +1,11 @@
 import 'bootstrap/dist/js/bootstrap.min.js'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/css/bootstrap-theme.css'
-require('layui-layer')
+// require('layui-layer')
 import {baseUrl} from "../../base/config/index.js"
 var utils = require('../../base/utils/index.js')
 
-import "./head.css" 
+import "./index.css" 
 // var baseUrl = "http://192.168.2.93:8080/"
 var logoutUrl = baseUrl + "api/user/logout"; //请求退出
 

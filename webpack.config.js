@@ -8,7 +8,7 @@ const devMode = process.env.NODE_ENV !== 'production';//标识生产/开发环�
 const pages = require('./webpack.configPages.js');
 const merge = require('webpack-merge');
 const os = require('os');
-//静态资源输出
+//webpack文件拷贝插件
 const copyWebpackPlugin = require("copy-webpack-plugin");
 
 if (process.env.NODE_ENV === 'test') {
@@ -64,12 +64,12 @@ const conf = {
             filename: devMode ? 'css/[name].css' : 'css/[name].[contenthash:7].css',
             allChunks: true
         }),
-        //静态资源输出
-        new copyWebpackPlugin([{
+        //静态资源直接拷贝输出
+        /*new copyWebpackPlugin([{
             from: path.resolve(__dirname, "./static"),
             to: './static',
             ignore: ['.*']
-        }]),
+        }]),*/
         new OptimizeCssAssetsPlugin({
             cssProcessorOptions: {
                 map: devMode ? {
@@ -84,7 +84,7 @@ const conf = {
         new webpack.DefinePlugin({//定义全局变量
             HTTP_ENV: JSON.stringify(process.env.NODE_ENV)
         }),
-        // new BundleAnalyzerPlugin(),//打包分析插件
+        new BundleAnalyzerPlugin(),//打包分析插件
         new webpack.ProvidePlugin({//单独全局引入第三方插件
             $: "jquery",
             jQuery: "jquery",
@@ -157,7 +157,7 @@ const conf = {
                     {
                         loader: 'url-loader',
                         options: {
-                            name: '[path][name].[ext]',
+                            name: 'assets/[name].[ext]',
                             limit: 10000//设置小于10k的文件转换为base64
                         }
                     }
