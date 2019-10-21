@@ -26,9 +26,9 @@ if(urlstr.indexOf('zonglan')!=-1){
 }else if(urlstr.indexOf('shebeiweihu')!=-1){
     $('.navbar-nav').find('li').removeClass('on')
     $('.navbar-nav').children("li[href-data='shebeiweihu']").addClass('on')
-}else if(urlstr.indexOf('yuanganjiance')!=-1){
+}else if(urlstr.indexOf('demo')!=-1){
     $('.navbar-nav').find('li').removeClass('on')
-    $('.navbar-nav').children("li[href-data='yuanganjiance']").addClass('on')
+    $('.navbar-nav').children("li[href-data='demo']").addClass('on')
 }
 
 
@@ -41,7 +41,7 @@ $('.userquit').on('click',function(){
         utils.Request.ajaxHttpsRequest(logoutUrl, {}, function (res) {
             console.log(res)
             if (res.code == 200) {
-                location.href = "./login.html"
+                location.href = "./index.html"
                 sessionStorage.clear()
                 layer.msg('登出成功')
             }

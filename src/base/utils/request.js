@@ -31,7 +31,7 @@ function getAjaxHttpsRequest(_url, _data, callback, errback) {
         // 成功请求成功后的回调函数
         success: function(data) {
             if (data.code == 1000) {
-                location.href = './login.html'
+                location.href = './index.html'
                 return
             }
             callback(data)
@@ -67,7 +67,7 @@ function getAjaxAsyncHttpsRequest(_url, _data, callback, errback) {
         // 成功请求成功后的回调函数
         success: function(data) {
             if (data.code == 1000) {
-                location.href = './login.html'
+                location.href = './index.html'
                 return
             }
             callback(data)
@@ -103,7 +103,7 @@ function ajaxHttpsRequest(_url, _data, callback, errback) {
         // 成功请求成功后的回调函数
         success: function(data) {
             if (data.code == 1000) {
-                location.href = './login.html'
+                location.href = './index.html'
                 return
             }
             callback(data)
@@ -139,7 +139,7 @@ function ajaxAsyncHttpsRequest(_url, _data, callback, errback) {
         // 成功请求成功后的回调函数
         success: function(data) {
             if (data.code == 1000) {
-                location.href = './login.html'
+                location.href = './index.html'
                 return
             }
             callback(data)

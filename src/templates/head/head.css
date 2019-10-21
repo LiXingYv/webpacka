@@ -1,4 +1,3 @@
-@import url("./common.css");/*引入通用的css*/
 
 body{background: #575b6d;min-width: 1365px;}
 .navbar-me{height: 120px;background: #262a3d url(../../assets/headbg.png) no-repeat top center;background-size: 100% 100%; margin: 0;border: none;box-shadow: 0 2px 22px 0 rgba(0,0,0,0.34);border-radius: 0;}

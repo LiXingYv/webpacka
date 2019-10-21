@@ -53,7 +53,7 @@ const conf = {
     //     $: 'jquery'
     // },
     devServer: {
-        index:"login.html",//设置打开的主页
+        index:"index.html",//设置打开的主页
         host:getIPAdress(),
         disableHostCheck: true,
         contentBase: './dist',
@@ -152,7 +152,7 @@ const conf = {
                 }
             },*/
             {//加载图片
-                test: /\.(png|jpg|gif|jpeg)$/,
+                test: /\.(ico|png|jpg|gif|jpeg)$/,
                 use: [
                     {
                         loader: 'url-loader',

@@ -1,21 +1,20 @@
+<!--引入html页面开头-->
 <%= require('html-loader!src@/templates/start.html') %>
-
+<!--设置本页面的title-->
+<title>wps示例页面</title>
+<!--引入本项目公共组件“公共头部”-->
 <%= require('html-loader!src@/templates/head.html') %>
 <div class="my-container">
     <div class="content-container">
-        <!-- 表格上面的标题文字 -->
         <div class="title-container">
-            <span class="title-span">院感监测数据</span>
-            <span class="add-span"><span style="font-size: 30px; font-weight: 600;">＋</span>添加</span>
-            <!-- 右侧字典维护按钮 -->
+            <span class="title-span">wps示例页面主体部分</span>
             <div class="zdwh-div rt">
-                <img src="<%= require('src@/assets/zidian.png')%>" alt="">
-                <span class="zdwh">字典维护</span>
-                <!-- <img src="<%= require('src@/assets/rt.png')%>" alt=""> -->
-                <img src="<%= require('@/static/rt.png')%>" alt="">
+                <!--html中引入图片的写法-->
+                <img src="<%= require('src@/assets/demo.png')%>" alt="">
+                <span class="zdwh">html引入图片</span>
             </div>
         </div>
-        <!-- table表格区域 -->
+
         <table class="my-table" border="1" cellspacing="0" cellpadding="0">
             <thead>
                 <tr>
@@ -31,23 +30,22 @@
             <tbody>
             </tbody>
         </table>
-        <!-- 分页按钮区域 -->
+
         <div id="pagingation"></div>
-        <!-- <img src="<%= require('@/static/login-banner1.png')%>" alt=""> -->
     </div>
 </div>
-<!-- 添加区域模态框 -->
+
 <div class="modal fade" id="addData-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <!-- 这个里面放内容 -->
+
         <div class="modal-content my-model-content my-addmodel-content">
             <div class="model-content-container1">
                 <span class="my-layer-close" data-dismiss="modal">×</span>
-                <!-- 标题 -->
+
                 <div class="add-modal-title">
                     院感监测数据
                 </div>
-                <!-- 每一行 -->
+
                 <div class="add-modal-row clearfix">
                     <div class="lt l-div">
                         <span class="key-span">监测结论 </span>
@@ -64,7 +62,7 @@
                         </span>
                     </div>
                 </div>
-                <!-- 每一行 -->
+
                 <div class="add-modal-row clearfix">
                     <div class="lt l-div">
                         <span class="key-span">采样点 </span>
@@ -81,7 +79,7 @@
                         </span>
                     </div>
                 </div>
-                <!-- 每一行 -->
+
                 <div class="add-modal-row clearfix">
                     <div class="lt l-div">
                         <span class="key-span">监测项目 </span>
@@ -98,7 +96,7 @@
                         </span>
                     </div>
                 </div>
-                <!-- 每一行 -->
+
                 <div class="add-modal-row clearfix">
                     <div class="lt l-div">
                         <span class="key-span">结果 </span>
@@ -107,7 +105,7 @@
                         </span>
                     </div>
                 </div>
-                <!-- 按钮区域 -->
+
                 <div class="btn-box">
                     <div class="my-layer-btn-box">
                         <span class="my-layer-btn my-layer-sure-cancel-btn" data-dismiss="modal">取消</span>

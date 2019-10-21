@@ -4,25 +4,46 @@
  * @Date: 2019-08-15 16:10:36
  */
 
- document.title = "院感监测"
-require("layui-layer");
-import 'src@/templates/head/head.js'
-import 'src@/templates/head/common.css'
+
+/**
+ * 1、引入本页面的样式文件
+ */
 import './index.less'
 
+/**
+ * 2、引入项目公共配置
+ */
+import { baseUrl } from 'src@/base/config/index.js'//引入项目公共的url地址数据
+
+/**
+ * 3、引入本页面引入的项目公共组件js
+ */
+import 'src@/templates/head/head.js'//引入公共组件公用头部js
+
+/**
+ * 4、引入本项目通用的公共函数
+ */
+var common = require('src@/base/common/index.js')
+
+/**
+ * 5、引入常用的工具函数
+ */
+var utils = require('src@/base/utils/index.js')
+
+/**
+ * 6、引入第三方插件
+ */
+require("layui-layer");//引入layui插件
+//引入分页插件
 require('paginationjs/dist/pagination.css')
 require('paginationjs')
-
 require('@/lib/chosen_v1.8.7/chosen.jquery.js')
 require('@/lib/chosen_v1.8.7/chosen.css')
-
-import { baseUrl } from 'src@/base/config/index.js'
-// var baseUrl = 'http://192.168.2.91:8080/'
 var Pagination = require('src@/base/common/pagingation.js')
 
-var utils = require('src@/base/utils/index.js')
-console.log(utils.Request)
-
+/**
+ * 7、声明页面全局变量
+ */
 var getDataListUrl = baseUrl + '/api/getSense' // 分页查询获取数据
 var delDataUrl = baseUrl + '/api/delectSense' // 删除院感数据
 var updateDataUrl = baseUrl + '/api/updateSense' // 根据id跟新院感数据
@@ -31,12 +52,19 @@ var delectSenseUrl = baseUrl + '/api/delectSense' // 删除院感数据地址
 var updateSenseUrl = baseUrl + '/api/updateSense' // 更新院感数据
 var queryZidianUrl = baseUrl + '/api/selectDictionary' // 查询院感字典数据
 var getAllEndoscopeurl = baseUrl + '/api/getAllEndoscope' // 查询所有采样点
-
 // 请求首屏的数据
 var sendData = {
     PageSize: 5,
     PageNumber: 1
 }
+var editSenseID = null
+let delSenseID = null
+let delItemRow = null
+
+/**
+ * 8、页面初始化函数执行部分
+ */
+
 utils.Request.ajaxAsyncHttpsRequest(getDataListUrl, sendData, function(res) {
     if (res.code = 200) {
         // 渲染分页插件
@@ -52,6 +80,10 @@ utils.Request.ajaxAsyncHttpsRequest(getDataListUrl, sendData, function(res) {
     }
 })
 
+/**
+ * 9、页面事件注册部分
+ */
+
 // 点击添加按钮 打开添加按钮模态框
 $('body').on('click', '.add-span', function() {
     $('#addData-modal').modal('show')
@@ -61,19 +93,8 @@ $('body').on('click', '.add-span', function() {
         search_contains: true, //true-可根据中间字段模糊查询  
         no_results_text: "没有匹配结果"
     })
-    // var htmlStr = `
-    //     <option value="1">111</option>
-    //     <option value="1">111</option>
-    //     <option value="1">111</option>
-    //     <option value="1">111</option>
-    // `
-    // $('.EndoscopeID').html(htmlStr)
-    // $('.EndoscopeID').chosen({
-    //     width: "100%",
-    //     search_contains: true, //true-可根据中间字段模糊查询  
-    //     no_results_text: "没有匹配结果"
-    // });
 })
+
 // 点击添加模态框确定按钮
 $('body').on('click', '.add-sure-btn', function() {
     let sendData = {
@@ -113,7 +134,6 @@ $('body').on('click', '.add-sure-btn', function() {
 })
 
 // 点击编辑按钮 打开编辑模态框
-var editSenseID = null
 $('body').on('click', '.edit-btn', function() {
     let itemData = JSON.parse($(this).parent().attr('data-info'))
     editSenseID = itemData.senseID
@@ -136,6 +156,7 @@ $('body').on('click', '.edit-btn', function() {
     $('#edit-Auditor').val(itemData.auditor)
     $('#edit-Result').val(itemData.result)
 })
+
 // 点击编辑模态框的确定按钮
 $('body').on('click', '.edit-sure-btn', function() {
     let data = {
@@ -164,14 +185,13 @@ $('body').on('click', '.edit-sure-btn', function() {
 })
 
 // 点击删除模态框按钮
-let delSenseID = null
-let delItemRow = null
 $('body').on('click', '.delete-btn', function() {
     let itemData = JSON.parse($(this).parent().attr('data-info'))
     delSenseID = itemData.senseID
     delItemRow = $(this).parent().parent()
     $('#del-modal').modal('show')
 })
+
 $('body').on('click', '.sure-del-item', function() {
     let sendData = {
         id: delSenseID
@@ -204,6 +224,10 @@ $('.zdwh-div').click(function(event) {
 })
 
 /**
+ * 10、页面公共函数部分
+ */
+
+/**
  * @Description 渲染表格数据的方法
  * @Author      wangxin
  * @Date        2019-08-17
@@ -224,7 +248,6 @@ function renderTableData(selector, dataArr) {
                     <td>${v.auditorName}</td>
                     <td>${v.createTime}</td>
                     <td class="operation" data-endoscopeID="${v.endoscopeID}" data-info='${JSON.stringify(v)}'>
-                        <span class="edit-btn"><img src="${require('@/static/edit.png')}" alt="">编辑</span>
                         <span class="delete-btn"><img src="${require('src@/assets/remove.png')}" alt="">删除</span>
                         <span class="detail-btn"><img src="${require('src@/assets/detail.png')}" alt="">详情</span>
                     </td>
@@ -285,11 +308,7 @@ function getSelectOpt() {
                     htmlStr3 += `<option value="${v.iD}">${v.eq}-${v.code}</option>`
                 })
                 $('.EndoscopeID').html(htmlStr3)
-                // $('.EndoscopeID').chosen({
-                //     width: "100%",
-                //     search_contains: true, //true-可根据中间字段模糊查询  
-                //     no_results_text: "没有匹配结果"
-                // });
+
             }
         })
     })

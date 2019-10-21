@@ -16,9 +16,9 @@ import {
 // var baseUrl = 'http://139.129.167.26:35001/'
 var utils = require('../../base/utils/index.js')
 
-var loginUrl = baseUrl + 'api/user/login'
+var loginUrl = baseUrl + 'api/user/index'
 // 登录按钮的点击事件
-$('.login-btn').click(function() {
+$('.index-btn').click(function() {
 	var sendData = {
 		name: $.trim($('#account').val()),
 		password: $.trim($('#password').val())
@@ -52,6 +52,6 @@ $('.login-btn').click(function() {
 $('#password').keyup(function(event) {
 	/* Act on the event */
 	if (event.keyCode==13) {
-		$('.login-btn').click()
+		$('.index-btn').click()
 	}
 })

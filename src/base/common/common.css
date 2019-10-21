@@ -1,3 +1,4 @@
+/*全局都会用到的css样式*/
 /* 使用伪类清除浮动 */
 .clearfix:after {
     content: '';

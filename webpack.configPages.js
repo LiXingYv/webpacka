@@ -25,6 +25,7 @@ var getHtmlConfig = function (name, chunks) {
         filename: process.env.NODE_ENV === "development" ? `${name.slice(name.lastIndexOf('/') + 1)}.html` : `${name.slice(name.lastIndexOf('/') + 1)}.html`,
         inject: true,   // 注入向所有的template模板中注入静态资源 就是编译的js和css 
         hash: false,    //开启hash  ?[hash]
+        favicon:'./src/assets/favicon.ico',
         chunks: chunks,
         minify: process.env.NODE_ENV === "development" ? false : {
             removeComments: true, //移除HTML中的注释
