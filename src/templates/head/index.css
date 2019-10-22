@@ -1,4 +1,11 @@
+/*
+* @Description: 头部组件的样式
+* @Author: YiXu
+* @Date: 2019-10-15 16:10:55
+*/
 
+
+/*组件内部使用的样式*/
 body{background: #575b6d;min-width: 1365px;}
 .navbar-me{height: 120px;background: #262a3d url(../../assets/headbg.png) no-repeat top center;background-size: 100% 100%; margin: 0;border: none;box-shadow: 0 2px 22px 0 rgba(0,0,0,0.34);border-radius: 0;}
 .navbarcont{height: 100%;margin: 0 60px;position: relative;}
@@ -16,8 +23,6 @@ body{background: #575b6d;min-width: 1365px;}
 .usericon{display: inline-block;width: 35px;height: 35px;background: url(../../assets/user.png) no-repeat;vertical-align: middle;margin-right: 10px;}
 .userquit{cursor: pointer;font-size: 16px;color: #B7B7C1;display: inline-block;text-decoration: none;}
 .userquit:hover,.userquit:active,.userquit:focus{color: #B7B7C1;text-decoration: none;}
-
-
 .textalgin-r{text-align: right;}
 .closemodal{color: #fff;text-shadow: none;font-size: 54px;opacity: 1;font-weight: normal;margin-right: 25px;outline: none;}
 .closemodal:hover span{color: #fff;}

@@ -11,9 +11,11 @@
 import './index.less'
 
 /**
- * 2、引入项目公共配置
+ * 2、引入本项目公共资源，包括公共配置，公共函数，通用工具函数
  */
-import { baseUrl } from 'src@/base/config/index.js'//引入项目公共的url地址数据
+import { baseUrl } from 'src@/base/config/index.js'//引入本项目公共配置，此处只引入了url地址
+var common = require('src@/base/common/index.js') //引入本项目公共函数
+var utils = require('src@/base/utils/index.js') //引入通用工具函数库
 
 /**
  * 3、引入本页面引入的项目公共组件js
@@ -21,17 +23,7 @@ import { baseUrl } from 'src@/base/config/index.js'//引入项目公共的url地
 import 'src@/templates/head/index.js'//引入公共组件公用头部js
 
 /**
- * 4、引入本项目通用的公共函数
- */
-var common = require('src@/base/common/index.js')
-
-/**
- * 5、引入常用的工具函数
- */
-var utils = require('src@/base/utils/index.js')
-
-/**
- * 6、引入第三方插件
+ * 4、引入第三方插件
  */
 // require("layui-layer");//引入layui插件
 //引入分页插件
@@ -42,7 +34,7 @@ require('@/lib/chosen_v1.8.7/chosen.css')
 var Pagination = require('src@/base/common/pagingation.js')
 
 /**
- * 7、声明页面全局变量
+ * 5、声明本页面全局变量
  */
 var getDataListUrl = baseUrl + '/api/getSense' // 分页查询获取数据
 var delDataUrl = baseUrl + '/api/delectSense' // 删除院感数据
@@ -62,7 +54,7 @@ let delSenseID = null
 let delItemRow = null
 
 /**
- * 8、页面初始化函数执行部分
+ * 6、页面初始化函数执行部分
  */
 
 utils.Request.ajaxAsyncHttpsRequest(getDataListUrl, sendData, function(res) {
@@ -81,7 +73,7 @@ utils.Request.ajaxAsyncHttpsRequest(getDataListUrl, sendData, function(res) {
 })
 
 /**
- * 9、页面事件注册部分
+ * 7、页面事件注册部分
  */
 
 // 点击添加按钮 打开添加按钮模态框
@@ -224,7 +216,7 @@ $('.zdwh-div').click(function(event) {
 })
 
 /**
- * 10、页面公共函数部分
+ * 8、页面公共函数部分
  */
 
 /**
