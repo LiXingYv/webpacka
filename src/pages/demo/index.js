@@ -15,6 +15,7 @@ import './index.less'
  */
 import { baseUrl } from 'src@/base/config/index.js'//引入本项目公共配置，此处只引入了url地址
 var common = require('src@/base/common/index.js') //引入本项目公共函数
+var commonDemo = require('src@/base/common/common_demo.js') //引入本项目示例公共函数
 var utils = require('src@/base/utils/index.js') //引入通用工具函数库
 
 /**
@@ -31,7 +32,7 @@ require('paginationjs/dist/pagination.css')
 require('paginationjs')
 require('@/lib/chosen_v1.8.7/chosen.jquery.js')
 require('@/lib/chosen_v1.8.7/chosen.css')
-var Pagination = require('src@/base/common/pagingation.js')
+
 
 /**
  * 5、声明本页面全局变量
@@ -57,7 +58,8 @@ let delItemRow = null
  * 6、页面初始化函数执行部分
  */
 
-utils.Request.ajaxAsyncHttpsRequest(getDataListUrl, sendData, function(res) {
+commonDemo.funA();
+/*utils.Request.ajaxAsyncHttpsRequest(getDataListUrl, sendData, function(res) {
     if (res.code = 200) {
         // 渲染分页插件
         Pagination.renderPagination('#pagingation', res.data.total, 5, function(pageIndex) {
@@ -70,7 +72,7 @@ utils.Request.ajaxAsyncHttpsRequest(getDataListUrl, sendData, function(res) {
             })
         })
     }
-})
+})*/
 
 /**
  * 7、页面事件注册部分

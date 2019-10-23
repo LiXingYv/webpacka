@@ -1,22 +1,44 @@
 /*
-* @Description: 登录页面的js
+* @Description: 主页
 * @Author: WangXin
 * @Date: 2019-08-16 17:19:43
 */
 
-// require("layui-layer")
+
+/**
+ * 1、引入本页面的样式文件
+ */
 import './index.less'
 
-// 引入基础的路径
-import {
-	baseUrl
-} from '../../base/config/index.js'
 
-// var baseUrl = 'http://192.168.2.91:8080'
-// var baseUrl = 'http://139.129.167.26:35001/'
-var utils = require('../../base/utils/index.js')
+/**
+ * 2、引入本项目公共资源，包括公共配置，公共函数，通用工具函数
+ */
+import { baseUrl } from 'src@/base/config/index.js'//引入本项目公共配置，此处只引入了url地址
+var common = require('src@/base/common/index.js') //引入本项目公共函数
+var utils = require('src@/base/utils/index.js') //引入通用工具函数库
 
+/**
+ * 3、引入本页面引入的项目公共组件js
+ */
+
+/**
+ * 4、引入第三方插件
+ */
+
+/**
+ * 5、声明本页面全局变量
+ */
+
+/**
+ * 6、页面初始化函数执行部分
+ */
 var loginUrl = baseUrl + 'api/user/index'
+
+/**
+ * 7、页面事件注册部分
+ */
+
 // 登录按钮的点击事件
 $('.index-btn').click(function() {
 	var sendData = {
@@ -55,3 +77,7 @@ $('#password').keyup(function(event) {
 		$('.index-btn').click()
 	}
 })
+
+/**
+ * 8、页面公共函数部分
+ */
